@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Morse Vampire</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="app" class="app">
+    <section id="topPanel" class="top-panel idle">
+      <div id="topLabel" class="top-label">Tempo sessione</div>
+      <div class="progress-track">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+      <div id="timeText" class="time-text">Pronto</div>
+    </section>
+
+    <section class="center-wrap">
+      <button id="startBtn" class="start-btn" type="button" aria-label="Avvia ascolto">
+        <span class="pulse-ring ring-1"></span>
+        <span class="pulse-ring ring-2"></span>
+        <span class="pulse-ring ring-3"></span>
+
+        <svg class="mouth-svg" viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Ombra -->
+          <ellipse cx="170" cy="178" rx="116" ry="18" fill="rgba(0,0,0,0.42)" />
+
+          <!-- Labbro superiore -->
+          <path
+            d="M28 110
+               C65 34, 120 18, 170 18
+               C220 18, 275 34, 312 110
+               C270 83, 225 71, 170 71
+               C115 71, 70 83, 28 110 Z"
+            fill="#8f001d"
+          />
+
+          <!-- Riflesso superiore -->
+          <path
+            d="M48 96
+               C84 49, 125 35, 170 35
+               C215 35, 256 49, 292 96
+               C252 78, 215 68, 170 68
+               C125 68, 88 78, 48 96 Z"
+            fill="rgba(255,80,120,0.16)"
+          />
+
+          <!-- Labbro inferiore -->
+          <path
+            d="M28 110
+               C65 186, 120 202, 170 202
+               C220 202, 275 186, 312 110
+               C270 137, 225 149, 170 149
+               C115 149, 70 137, 28 110 Z"
+            fill="#42000d"
+          />
+
+          <!-- Interno bocca -->
+          <ellipse id="mouthInner" cx="170" cy="110" rx="102" ry="34" fill="#0d0103" />
+
+          <!-- Lingua -->
+          <path
+            id="tongue"
+            d="M112 132
+               C128 160, 212 160, 228 132
+               C212 118, 128 118, 112 132 Z"
+            fill="#cf3159"
+            opacity="0.95"
+          />
+
+          <!-- Zanne lunghe -->
+          <polygon id="fangL" points="116,72 136,72 126,128" fill="#fffaf5" />
+          <polygon id="fangR" points="204,72 224,72 214,128" fill="#fffaf5" />
+        </svg>
+      </button>
+
+      <!-- Sequenza sotto la bocca -->
+      <div id="seqText" class="seq-text">—</div>
+
+      <div class="info-block">
+        <div id="statusText" class="status-text">Premi la bocca per iniziare</div>
+        <div id="subText" class="sub-text">Microfono necessario</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
