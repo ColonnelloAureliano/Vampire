@@ -1,0 +1,356 @@
+:root {
+  --bg1: #000000;
+  --bg2: #120005;
+  --fg: #ffffff;
+  --muted: rgba(255,255,255,0.72);
+
+  --panel: rgba(255,255,255,0.08);
+  --panel-border: rgba(255,255,255,0.14);
+
+  --red-1: #ff305f;
+  --red-2: #a30023;
+  --red-3: #4b000f;
+
+  --green-1: #6eff98;
+  --green-2: #1fc45a;
+
+  --shadow: 0 18px 40px rgba(0,0,0,0.44);
+  --radius: 22px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+.app {
+  min-height: 100dvh;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 14px 22px;
+  background:
+    radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 36%),
+    linear-gradient(180deg, var(--bg2) 0%, var(--bg1) 100%);
+  transition: background 220ms ease;
+}
+
+.app.listening {
+  background:
+    radial-gradient(circle at center, rgba(255,40,90,0.12) 0%, transparent 36%),
+    linear-gradient(180deg, #160005 0%, #000000 100%);
+}
+
+.app.success-mode {
+  background:
+    radial-gradient(circle at center, rgba(255,255,255,0.06) 0%, transparent 28%),
+    linear-gradient(180deg, #5c0000 0%, #8f0000 50%, #cf0909 100%);
+  animation: bgPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes bgPulse {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.08);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+.top-panel {
+  width: min(92vw, 560px);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  padding: 12px 14px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.top-label {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.progress-track {
+  height: 12px;
+  width: 100%;
+  background: rgba(255,255,255,0.10);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  transition: width 80ms linear, background 120ms ease;
+}
+
+/* Barra rossa per ascolto */
+.top-panel.session .progress-bar,
+.top-panel.idle .progress-bar,
+.top-panel.success .progress-bar {
+  background: linear-gradient(90deg, #ff708f 0%, #ff174d 100%);
+}
+
+/* Barra verde per calibrazione */
+.top-panel.calibrating .progress-bar {
+  background: linear-gradient(90deg, var(--green-1) 0%, var(--green-2) 100%);
+}
+
+.time-text {
+  margin-top: 8px;
+  text-align: right;
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.center-wrap {
+  flex: 1;
+  width: min(92vw, 560px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.start-btn {
+  position: relative;
+  width: min(82vw, 360px);
+  height: min(82vw, 360px);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.start-btn:disabled {
+  cursor: default;
+}
+
+.mouth-svg {
+  width: 100%;
+  display: block;
+  filter:
+    drop-shadow(0 0 18px rgba(255, 20, 70, 0.22))
+    drop-shadow(0 0 36px rgba(255, 20, 70, 0.12))
+    drop-shadow(0 14px 42px rgba(0,0,0,0.55));
+  transition: transform 120ms ease, filter 140ms ease;
+}
+
+.start-btn.active .mouth-svg {
+  transform: scale(1.03);
+  filter:
+    drop-shadow(0 0 24px rgba(255, 35, 88, 0.34))
+    drop-shadow(0 0 62px rgba(255, 35, 88, 0.18))
+    drop-shadow(0 16px 46px rgba(0,0,0,0.62));
+}
+
+/* Glow pulsante quando è viva */
+.start-btn.mouth-live .mouth-svg {
+  animation: mouthGlow 1.6s infinite ease-in-out;
+}
+
+@keyframes mouthGlow {
+  0% {
+    filter:
+      drop-shadow(0 0 20px rgba(255, 35, 88, 0.28))
+      drop-shadow(0 0 48px rgba(255, 35, 88, 0.12))
+      drop-shadow(0 16px 46px rgba(0,0,0,0.62));
+    transform: scale(1.03);
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 32px rgba(255, 35, 88, 0.44))
+      drop-shadow(0 0 78px rgba(255, 35, 88, 0.22))
+      drop-shadow(0 16px 46px rgba(0,0,0,0.62));
+    transform: scale(1.05);
+  }
+  100% {
+    filter:
+      drop-shadow(0 0 20px rgba(255, 35, 88, 0.28))
+      drop-shadow(0 0 48px rgba(255, 35, 88, 0.12))
+      drop-shadow(0 16px 46px rgba(0,0,0,0.62));
+    transform: scale(1.03);
+  }
+}
+
+/* Elementi interni bocca */
+#mouthInner,
+#tongue,
+#fangL,
+#fangR {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 110ms ease, opacity 110ms ease;
+}
+
+.start-btn.sounding #mouthInner {
+  transform: scaleY(1.48);
+}
+
+.start-btn.sounding #tongue {
+  transform: translateY(7px) scaleY(1.10);
+}
+
+/* Zanne più teatrali */
+#fangL,
+#fangR {
+  opacity: 0.82;
+}
+
+.start-btn.sounding #fangL {
+  transform: translateY(12px) scaleY(1.28);
+  opacity: 1;
+}
+
+.start-btn.sounding #fangR {
+  transform: translateY(12px) scaleY(1.28);
+  opacity: 1;
+}
+
+/* Onde ultrasuoni */
+.pulse-ring {
+  position: absolute;
+  width: 68%;
+  height: 68%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 35, 78, 0);
+  opacity: 0;
+  transform: scale(0.70);
+  pointer-events: none;
+}
+
+.start-btn.calibrating .pulse-ring {
+  animation: pulse 1.4s infinite ease-out;
+}
+
+.start-btn.calibrating .ring-2 { animation-delay: 0.45s; }
+.start-btn.calibrating .ring-3 { animation-delay: 0.90s; }
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.70);
+    opacity: 0;
+    border-color: rgba(80, 255, 130, 0);
+  }
+  10% {
+    opacity: 0.96;
+    border-color: rgba(80, 255, 130, 0.95);
+  }
+  100% {
+    transform: scale(1.40);
+    opacity: 0;
+    border-color: rgba(80, 255, 130, 0);
+  }
+}
+
+/* Sequenza sotto la bocca */
+.seq-text {
+  min-height: 1.4em;
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  font-weight: 900;
+  color: #ff244f;
+  letter-spacing: 0.18em;
+  text-align: center;
+  text-shadow:
+    0 0 10px rgba(255, 36, 79, 0.30),
+    0 0 22px rgba(255, 36, 79, 0.18);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
+}
+
+.info-block {
+  text-align: center;
+  min-height: 60px;
+}
+
+.status-text {
+  font-size: clamp(1.1rem, 2.8vw, 1.35rem);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.sub-text {
+  margin-top: 6px;
+  font-size: 0.97rem;
+  color: var(--muted);
+  line-height: 1.32;
+  max-width: 90%;
+}
+
+/* Piccolo movimento “vivo” in modalità finale */
+.start-btn.mouth-live #mouthInner {
+  animation: mouthInnerLive 1.25s infinite ease-in-out;
+}
+
+.start-btn.mouth-live #tongue {
+  animation: tongueLive 1.25s infinite ease-in-out;
+}
+
+.start-btn.mouth-live #fangL,
+.start-btn.mouth-live #fangR {
+  animation: fangLive 1.25s infinite ease-in-out;
+}
+
+@keyframes mouthInnerLive {
+  0%   { transform: scaleY(1.88); }
+  50%  { transform: scaleY(1.98); }
+  100% { transform: scaleY(1.88); }
+}
+
+@keyframes tongueLive {
+  0%   { transform: translateY(12px) scaleY(1.12); }
+  50%  { transform: translateY(15px) scaleY(1.18); }
+  100% { transform: translateY(12px) scaleY(1.12); }
+}
+
+@keyframes fangLive {
+  0%   { transform: translateY(14px) scaleY(1.32); }
+  50%  { transform: translateY(16px) scaleY(1.36); }
+  100% { transform: translateY(14px) scaleY(1.32); }
+}
+
+@media (max-width: 420px) {
+  .start-btn {
+    width: min(84vw, 320px);
+    height: min(84vw, 320px);
+  }
+
+  .seq-text {
+    font-size: 1.9rem;
+  }
+
+  .sub-text {
+    font-size: 0.90rem;
+  }
+}
