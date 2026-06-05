@@ -8,8 +8,11 @@
   const SESSION_MS = 10000;
 
   const DOT_MIN_MS = 150;
-  const DOT_MAX_MS = 300;
-  const MIN_LINE_ABS_MS = 350;
+  //const DOT_MAX_MS = 300;
+  // provo questo mi rilevava troppe cose come linea
+  const DOT_MAX_MS = 350;
+  // const MIN_LINE_ABS_MS = 350;
+  const MIN_LINE_ABS_MS = 400;
 
   const MIN_ON_MS = 45;
   const MIN_OFF_MS = 90;
