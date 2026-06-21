@@ -375,7 +375,7 @@
     progressBar.style.width = "0%";
     timeText.textContent = "10.0 s";
 
-    setStatus("Ascolto attivo", "Punto 150–300 ms • Linea = doppio del primo punto (min 350 ms)");
+    setStatus("Ascolto attivo", "hai mai provato a fare bat calling?");
     startBtn.classList.remove("calibrating");
   }
 
